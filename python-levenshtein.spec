@@ -43,7 +43,8 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc MANIFEST NEWS COPYING README Levenshtein.html
+%doc MANIFEST NEWS COPYING README
+%doc StringMatcher.py Levenshtein.html
 %{python_sitearch}/*.so
 %{python_sitearch}/*.egg-info
 
