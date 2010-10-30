@@ -1,6 +1,6 @@
 %define oname python-Levenshtein
 %define version 0.10.1
-%define release %mkrel 1
+%define release %mkrel 2
 
 Summary: Levenshtein Python extension and C library
 Name: python-levenshtein
@@ -13,8 +13,8 @@ License: GPLv2+
 Group: Development/Python
 Url: http://translate.sourceforge.net/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
+BuildRequires: python-devel
 Provides: %{oname} = %{version}-%{release}
-%py_requires -d
 
 %description
 The Levenshtein Python C extension module contains functions for fast
