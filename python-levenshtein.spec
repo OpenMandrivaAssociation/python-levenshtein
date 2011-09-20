@@ -1,14 +1,13 @@
 %define oname python-Levenshtein
-%define version 0.10.1
-%define release %mkrel 2
 
 Summary: Levenshtein Python extension and C library
 Name: python-levenshtein
-Version: %{version}
-Release: %{release}
+Version: 0.10.1
+Release: %mkrel 3
 Source0: http://downloads.sourceforge.net/translate/%{oname}-%{version}.tar.bz2
 # nedded to build the html documentation
 Source1: genextdoc.py
+Patch0: python-Levenshtein-0.10.1-mathlib.diff
 License: GPLv2+
 Group: Development/Python
 Url: http://translate.sourceforge.net/
@@ -27,9 +26,11 @@ It supports both normal and Unicode strings.
 
 %prep
 %setup -q -n %{oname}-%{version}
+%patch0 -p0
 install %{SOURCE1} .
 
 %build
+
 %{__python} setup.py build
 
 %install
@@ -47,4 +48,3 @@ rm -rf %{buildroot}
 %doc StringMatcher.py Levenshtein.html
 %{python_sitearch}/*.so
 %{python_sitearch}/*.egg-info
-
