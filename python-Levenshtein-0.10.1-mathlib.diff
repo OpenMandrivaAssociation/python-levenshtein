@@ -1,0 +1,10 @@
+--- setup.py	2005-01-13 20:07:51.000000000 +0000
++++ setup.py.oden	2011-09-20 15:54:23.000000000 +0000
+@@ -2,6 +2,7 @@
+ 
+ extLevensthein = Extension('Levenshtein',
+                            sources = ['Levenshtein.c'],
++                           libraries=["m"],
+                            )
+ 
+ setup(name = 'python-Levenshtein',
