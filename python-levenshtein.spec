@@ -1,9 +1,12 @@
 %define oname python-Levenshtein
+%define version 0.10.1
+%define subrel 1
+%define release %mkrel 3
 
 Summary: Levenshtein Python extension and C library
 Name: python-levenshtein
-Version: 0.10.1
-Release: %mkrel 3
+Version: %{version}
+Release: %{release}
 Source0: http://downloads.sourceforge.net/translate/%{oname}-%{version}.tar.bz2
 # nedded to build the html documentation
 Source1: genextdoc.py
@@ -48,3 +51,22 @@ rm -rf %{buildroot}
 %doc StringMatcher.py Levenshtein.html
 %{python_sitearch}/*.so
 %{python_sitearch}/*.egg-info
+
+
+
+%changelog
+* Tue Sep 20 2011 Oden Eriksson <oeriksson@mandriva.com> 0.10.1-2.1
+- built for updates
+- P0: fix build (-lm)
+
+* Sat Oct 30 2010 Ahmad Samir <ahmadsamir@mandriva.org> 0.10.1-2mdv2011.0
++ Revision: 590603
+- rebuild for python-2.7
+- drop obsolete %%py_requires macro and add python-devel as BR
+
+* Thu May 21 2009 Jérôme Brenier <incubusss@mandriva.org> 0.10.1-1mdv2010.0
++ Revision: 378552
+- fix doc
+- import python-levenshtein
+
+
