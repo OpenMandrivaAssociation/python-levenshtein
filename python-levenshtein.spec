@@ -1,7 +1,7 @@
 %define oname python-Levenshtein
 %define version 0.10.1
 %define subrel 1
-%define release %mkrel 3
+%define release 4
 
 Summary: Levenshtein Python extension and C library
 Name: python-levenshtein
