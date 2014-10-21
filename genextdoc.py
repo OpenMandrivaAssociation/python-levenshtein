@@ -1,6 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # Simple Python extension module doc generator.
-# @(#) $Id: genextdoc.py,v 1.5 2004/10/07 15:32:31 yeti Exp $
+# @(#) $Id: genextdoc.py,v 1.1 2004/05/25 11:13:23 carlo Exp $
 # Written by Yeti <yeti@physics.muni.cz>
 # This program is in the public domain.
 import re, sys, types, inspect
@@ -8,9 +8,7 @@ from cgi import escape as q
 
 args = sys.argv
 args.pop(0)
-if not args:
-    print 'Usage: genextdoc.py [--selfcontained] module_name'
-    sys.exit(0)
+if not args: sys.exit(0)
 
 selfcontained = False
 if args[0].startswith('-') and 'selfcontained'.startswith(args[0].strip('-')):
@@ -57,7 +55,7 @@ def get_doc(members):
 
 def format_synopsis(synopsis, link=False, classname=None):
     lst = synopsis.split('\n')
-    for i, s in zip(range(len(lst)), lst):
+    for i, s in zip(list(range(len(lst))), lst):
         m = re.match(r'(?P<func>\w+)(?P<args>.*)', s)
         args = re.sub(r'([a-zA-Z]\w+)', r'<var>\1</var>', m.group('args'))
         func = m.group('func')
@@ -102,7 +100,7 @@ def analyse(obj):
     routines = {}
     classes = {}
     data = {}
-    for name, m in members.items():
+    for name, m in list(members.items()):
         if name.startswith('__'): continue
         try:
             mro = list(inspect.getmro(m))
@@ -118,7 +116,7 @@ def analyse(obj):
             classes[name] = analyse(m)
             continue
         t = type(m)
-        if t == types.IntType or t == types.StringType:
+        if t == int or t == bytes:
             data[name] = repr(m)
         else:
             data[name] = m.__doc__
@@ -137,15 +135,15 @@ def format(tree, level, prefix=''):
         except TypeError:
             doc.append(name)
         doc.append('</h%d>\n' % level)
-        if tree.has_key('bases'):
+        if 'bases' in tree:
             doc.append('<p>Bases: %s.</p>\n' % ', '.join(tree['bases']))
     try: lst = [tree['doc']['summary']] + tree['doc']['details']
     except TypeError: lst = tree['doc']
     for p in lst: doc.append(format_para(p))
     ##### Table of contents
-    routines = tree['routines'].keys()
-    classes = tree['classes'].keys()
-    data = tree['data'].keys()
+    routines = list(tree['routines'].keys())
+    classes = list(tree['classes'].keys())
+    data = list(tree['data'].keys())
     if routines:
         routines.sort()
         if level == 1: doc.append('<p><b>Functions:</b></p>\n')
@@ -191,10 +189,10 @@ def format(tree, level, prefix=''):
             doc.append(format(tree['classes'][r], level+1, fullname))
     return ''.join(doc)
 
-exec 'import %s as __test__' % modname
+exec('import %s as __test__' % modname)
 doctree = analyse(__test__)
 document = format(doctree, 1)
-print modname + '.html'
+print(modname + '.html')
 fh = file(modname + '.html', 'w')
 if selfcontained: fh.write(html_head % (modname, 'module API'))
 fh.write(document)
@@ -205,7 +203,7 @@ for f in plain_docs:
     except: continue
     document = fh.read()
     fh.close()
-    print f + '.xhtml'
+    print(f + '.xhtml')
     fh = file(f + '.xhtml', 'w')
     if selfcontained: fh.write(html_head % (modname, f))
     fh.write('<h1>%s %s</h1>\n\n' % (modname, f))
@@ -214,3 +212,4 @@ for f in plain_docs:
     fh.write('</pre>\n')
     if selfcontained: fh.write(html_foot)
     fh.close()
+

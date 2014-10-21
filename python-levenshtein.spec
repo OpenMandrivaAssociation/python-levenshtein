@@ -2,16 +2,16 @@
 
 Summary:	Levenshtein Python extension and C library
 Name:		python-levenshtein
-Version:	0.10.1
-Release:	10
+Version:	0.11.2
+Release:	1
 License:	GPLv2+
 Group:		Development/Python
 Url:		http://translate.sourceforge.net/
-Source0:	http://downloads.sourceforge.net/translate/%{oname}-%{version}.tar.bz2
+Source0:	http://downloads.sourceforge.net/translate/%{oname}-%{version}.tar.gz
 # nedded to build the html documentation
 Source1:	genextdoc.py
-Patch0:		python-Levenshtein-0.10.1-mathlib.diff
-BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(python3)
+BuildRequires:	python2
 Provides:	%{oname} = %{version}-%{release}
 
 %description
@@ -25,19 +25,18 @@ It supports both normal and Unicode strings.
 
 %prep
 %setup -q -n %{oname}-%{version}
-%patch0 -p0
 install %{SOURCE1} .
 
 %build
-%{__python} setup.py build
+%{__python} setup.py build build_ext -l m
 
 %install
 %{__python} setup.py install --root=%{buildroot}
 
-PYTHONPATH=$PYTHONPATH:%{buildroot}%{python_sitearch} ./gendoc.sh Levenshtein
+PYTHONPATH=$PYTHONPATH:%{buildroot}%{python_sitearch} %__python2 genextdoc.py Levenshtein
 
 %files
-%doc MANIFEST NEWS COPYING README
+%doc MANIFEST.in NEWS COPYING README.rst
 %doc StringMatcher.py Levenshtein.html
 %{python_sitearch}/*.so
 %{python_sitearch}/*.egg-info
