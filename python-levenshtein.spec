@@ -12,7 +12,6 @@ Source0:	http://downloads.sourceforge.net/translate/%{oname}-%{version}.tar.gz
 Source1:	genextdoc.py
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	python-setuptools
-BuildRequires:	python2
 Provides:	%{oname} = %{version}-%{release}
 
 %description
@@ -34,7 +33,7 @@ install %{SOURCE1} .
 %install
 %{__python} setup.py install --root=%{buildroot}
 
-PYTHONPATH=$PYTHONPATH:%{buildroot}%{python_sitearch} %__python2 genextdoc.py Levenshtein
+PYTHONPATH=$PYTHONPATH:%{buildroot}%{python_sitearch} %__python genextdoc.py Levenshtein
 
 %files
 %doc MANIFEST.in NEWS COPYING README.rst
