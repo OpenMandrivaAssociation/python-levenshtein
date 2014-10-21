@@ -11,6 +11,7 @@ Source0:	http://downloads.sourceforge.net/translate/%{oname}-%{version}.tar.gz
 # nedded to build the html documentation
 Source1:	genextdoc.py
 BuildRequires:	pkgconfig(python3)
+BuildRequires:	python-setuptools
 BuildRequires:	python2
 Provides:	%{oname} = %{version}-%{release}
 
