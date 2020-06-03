@@ -8,8 +8,6 @@ License:	GPLv2+
 Group:		Development/Python
 Url:            http://github.com/ztane/python-Levenshtein
 Source0:        https://pypi.python.org/packages/source/p/%{oname}/%{oname}-%{version}.tar.gz
-# nedded to build the html documentation
-Source1:	genextdoc.py
 BuildRequires:	pkgconfig(python)
 BuildRequires:	python-setuptools
 Provides:	%{oname} = %{version}-%{release}
