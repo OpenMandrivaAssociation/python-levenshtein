@@ -25,15 +25,12 @@ It supports both normal and Unicode strings.
 
 %prep
 %setup -q -n %{oname}-%{version}
-install %{SOURCE1} .
 
 %build
 %{__python} setup.py build build_ext -l m
 
 %install
 %{__python} setup.py install --root=%{buildroot}
-
-PYTHONPATH=$PYTHONPATH:%{buildroot}%{python_sitearch} %__python genextdoc.py Levenshtein
 
 %files
 %doc MANIFEST.in NEWS COPYING README.rst
