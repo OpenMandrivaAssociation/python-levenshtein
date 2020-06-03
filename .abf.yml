@@ -1,4 +1,2 @@
-removed_sources:
-  python-Levenshtein-0.10.1.tar.bz2: d630141e003f47a43e0f8eacdcbf593bf9d15ed6
 sources:
-  python-Levenshtein-0.11.2.tar.gz: e497b3ebb2948ffb3dbd19d53b541c58967f6e32
+  python-Levenshtein-0.12.0.tar.gz: e24d85c9d632038f98202af687eb3d428eca0ac1
