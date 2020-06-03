@@ -38,7 +38,7 @@ rm -f %{buildroot}/%{python_sitearch}/Levenshtein/_levenshtein.h
 rm -f %{buildroot}/%{python_sitearch}/Levenshtein/StringMatcher.py
 rm -f %{buildroot}/%{python_sitearch}/Levenshtein/__pycache__/StringMatcher.*
 
-%files -n python3-levenshtein
+%files
 %doc README.rst HISTORY.txt
 %doc docs/Levenshtein.html
 %doc Levenshtein/StringMatcher.py
