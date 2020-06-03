@@ -23,6 +23,10 @@ computation of
 - string sequence and set similarity
 It supports both normal and Unicode strings.
 
+
+%prep
+%autosetup -n %{oname}-%{version} -p1
+
 rm -rf python_Levenshtein.egg-info
 
 %build
