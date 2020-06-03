@@ -2,15 +2,13 @@
 
 Summary:	Levenshtein Python extension and C library
 Name:		python-levenshtein
-Version:	0.11.2
-Release:	6
+Version:	0.12.0
+Release:	1
 License:	GPLv2+
 Group:		Development/Python
-Url:		http://translate.sourceforge.net/
-Source0:	http://downloads.sourceforge.net/translate/%{oname}-%{version}.tar.gz
-# nedded to build the html documentation
-Source1:	genextdoc.py
-BuildRequires:	pkgconfig(python3)
+Url:            http://github.com/ztane/python-Levenshtein
+Source0:        https://pypi.python.org/packages/source/p/%{oname}/%{oname}-%{version}.tar.gz
+BuildRequires:	pkgconfig(python)
 BuildRequires:	python-setuptools
 Provides:	%{oname} = %{version}-%{release}
 
@@ -23,21 +21,27 @@ computation of
 - string sequence and set similarity
 It supports both normal and Unicode strings.
 
+
 %prep
-%setup -q -n %{oname}-%{version}
-install %{SOURCE1} .
+%autosetup -n %{oname}-%{version} -p1
+
+rm -rf python_Levenshtein.egg-info
 
 %build
-%{__python} setup.py build build_ext -l m
+%py_build
 
 %install
-%{__python} setup.py install --root=%{buildroot}
+%py_install
 
-PYTHONPATH=$PYTHONPATH:%{buildroot}%{python_sitearch} %__python genextdoc.py Levenshtein
+# https://github.com/ztane/python-Levenshtein/issues/20
+rm -f %{buildroot}/%{python_sitearch}/Levenshtein/_levenshtein.c
+rm -f %{buildroot}/%{python_sitearch}/Levenshtein/_levenshtein.h
+# https://github.com/ztane/python-Levenshtein/issues/21
+rm -f %{buildroot}/%{python_sitearch}/Levenshtein/StringMatcher.py
+rm -f %{buildroot}/%{python_sitearch}/Levenshtein/__pycache__/StringMatcher.*
 
 %files
-%doc MANIFEST.in NEWS COPYING README.rst
-%doc StringMatcher.py Levenshtein.html
-%{python_sitearch}/*.so
-%{python_sitearch}/*.egg-info
-
+%doc README.rst HISTORY.txt
+%doc docs/Levenshtein.html
+%doc Levenshtein/StringMatcher.py
+%{python_sitearch}/*
