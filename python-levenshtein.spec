@@ -2,15 +2,15 @@
 
 Summary:	Levenshtein Python extension and C library
 Name:		python-levenshtein
-Version:	0.11.2
-Release:	6
+Version:	0.12.0
+Release:	1
 License:	GPLv2+
 Group:		Development/Python
 Url:		http://translate.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/translate/%{oname}-%{version}.tar.gz
 # nedded to build the html documentation
 Source1:	genextdoc.py
-BuildRequires:	pkgconfig(python3)
+BuildRequires:	pkgconfig(python)
 BuildRequires:	python-setuptools
 Provides:	%{oname} = %{version}-%{release}
 
