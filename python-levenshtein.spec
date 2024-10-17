@@ -6,7 +6,7 @@ Version:	0.12.0
 Release:	3
 License:	GPLv2+
 Group:		Development/Python
-Url:            http://github.com/ztane/python-Levenshtein
+Url:            https://github.com/ztane/python-Levenshtein
 Source0:        https://pypi.python.org/packages/source/p/%{oname}/%{oname}-%{version}.tar.gz
 BuildRequires:	pkgconfig(python)
 BuildRequires:	python-setuptools
