@@ -3,7 +3,7 @@
 Summary:	Levenshtein Python extension and C library
 Name:		python-levenshtein
 Version:	0.12.0
-Release:	3
+Release:	4
 License:	GPLv2+
 Group:		Development/Python
 Url:            https://github.com/ztane/python-Levenshtein
