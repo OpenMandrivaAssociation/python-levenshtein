@@ -1,16 +1,28 @@
-%define oname python-Levenshtein
+%global debug_package %nil
+%define module levenshtein
+%define oname Levenshtein
 
-Summary:	Levenshtein Python extension and C library
 Name:		python-levenshtein
-Version:	0.12.0
-Release:	4
-License:	GPLv2+
+Version:	0.27.3
+Release:	1
+Summary:	Levenshtein Python extension and C library
+License:	GPL-2.0-or-later
 Group:		Development/Python
-Url:            https://github.com/ztane/python-Levenshtein
-Source0:        https://pypi.python.org/packages/source/p/%{oname}/%{oname}-%{version}.tar.gz
+URL:		https://github.com/ztane/python-Levenshtein
+Source0:	https://pypi.python.org/packages/source/l/%{module}/%{module}-%{version}.tar.gz
+BuildSystem:	python
+
+BuildRequires:	cmake
+BuildRequires:	ninja
 BuildRequires:	pkgconfig(python)
-BuildRequires:	python-setuptools
-Provides:	%{oname} = %{version}-%{release}
+BuildRequires:	python%{pyver}dist(pip)
+BuildRequires:	python%{pyver}dist(rapidfuzz)
+BuildRequires:	python%{pyver}dist(scikit-build)
+BuildRequires:	python%{pyver}dist(setuptools)
+BuildRequires:	python%{pyver}dist(wheel)
+BuildRequires:	python%{pyver}dist(pytest)
+
+Provides:	%{module} = %{version}-%{release}
 
 %description
 The Levenshtein Python C extension module contains functions for fast
@@ -21,27 +33,20 @@ computation of
 - string sequence and set similarity
 It supports both normal and Unicode strings.
 
-
 %prep
-%autosetup -n %{oname}-%{version} -p1
-
-rm -rf python_Levenshtein.egg-info
+%autosetup -n %{module}-%{version} -p1
+# PEP639
+#sed -i '/license = "GPL-2.0-or-later"/d' pyproject.toml
 
 %build
+export LDFLAGS="%{ldflags} -lpython%{py_ver}"
 %py_build
 
 %install
 %py_install
 
-# https://github.com/ztane/python-Levenshtein/issues/20
-rm -f %{buildroot}/%{python_sitearch}/Levenshtein/_levenshtein.c
-rm -f %{buildroot}/%{python_sitearch}/Levenshtein/_levenshtein.h
-# https://github.com/ztane/python-Levenshtein/issues/21
-rm -f %{buildroot}/%{python_sitearch}/Levenshtein/StringMatcher.py
-rm -f %{buildroot}/%{python_sitearch}/Levenshtein/__pycache__/StringMatcher.*
-
 %files
-%doc README.rst HISTORY.txt
-%doc docs/Levenshtein.html
-%doc Levenshtein/StringMatcher.py
-%{python_sitearch}/*
+%doc README.md HISTORY.md
+%license LICENSE
+%{python_sitearch}/%{oname}
+%{python_sitearch}/%{module}-%{version}.dist-info
